@@ -1,0 +1,22 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Gordon Rishon</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1>Biography of [Person's Name]</h1>
+  <ul>
+  <li><a href="{{ url_for('routes.about') }}">About</a></li>
+  <li><a href="{{ url_for('routes.biography') }}">Biography</a></li>
+  <li><a href="{{ url_for('routes.map_page') }}">Map</a></li>
+  <li><a href="{{ url_for('routes.contact') }}">Contact</a></li>
+  </ul>
+</nav>
+<section class="content">
+
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
