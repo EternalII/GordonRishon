@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <p class="meta">{{ article.created_at|date:"F j, Y" }}</p>
+    <div>{{ article.body|linebreaks }}</div>
+    <br>
+    <a href="{% url 'articles' %}">← Back to Articles</a>
+{% endblock %}

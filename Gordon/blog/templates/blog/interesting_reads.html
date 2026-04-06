@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% block title %}Interesting Reads{% endblock %}
+{% block content %}
+    <h1>Interesting Reads</h1>
+    {% for read in reads %}
+        <div class="card">
+            <strong>{{ read.title }}</strong>
+            {% if read.author %}<span class="meta"> by {{ read.author }}</span>{% endif %}
+            <p>{{ read.review|linebreaks }}</p>
+            <p class="meta">Added {{ read.created_at|date:"F j, Y" }}</p>
+        </div>
+    {% empty %}
+        <p>Nothing added yet.</p>
+    {% endfor %}
+{% endblock %}
