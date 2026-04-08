@@ -1,0 +1,20 @@
+{% extends 'blog/en/base.html' %}
+{% block title %}Interesting Reads{% endblock %}
+{% block content %}
+    <h1>Interesting Reads</h1>
+    {% for read in reads %}
+        <div class="card">
+            <strong>{% if read.title_en %}{{ read.title_en }}{% else %}{{ read.title_ru }}{% endif %}</strong>
+            {% if read.author %}<span class="meta"> — {{ read.author }}</span>{% endif %}
+            {% if read.date %}<p class="meta">{{ read.date|date:"F Y" }}</p>{% endif %}
+            {% if read.body_en %}
+                <div class="article-body">{{ read.body_en|linebreaks }}</div>
+            {% else %}
+                <div class="article-body">{{ read.body_ru|linebreaks }}</div>
+                <p class="meta">Translation coming soon.</p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Nothing added yet.</p>
+    {% endfor %}
+{% endblock %}

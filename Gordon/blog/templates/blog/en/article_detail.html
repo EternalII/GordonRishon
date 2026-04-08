@@ -1,0 +1,14 @@
+{% extends 'blog/en/base.html' %}
+{% block title %}{% if article.title_en %}{{ article.title_en }}{% else %}{{ article.title_ru }}{% endif %}{% endblock %}
+{% block content %}
+    <h1>{% if article.title_en %}{{ article.title_en }}{% else %}{{ article.title_ru }}{% endif %}</h1>
+    {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
+    {% if article.body_en %}
+        <div class="article-body">{{ article.body_en|linebreaks }}</div>
+    {% else %}
+        <div class="article-body">{{ article.body_ru|linebreaks }}</div>
+        <p class="meta">Translation coming soon.</p>
+    {% endif %}
+    <br>
+    <a href="{% url 'articles_en' %}">← Back to Articles</a>
+{% endblock %}

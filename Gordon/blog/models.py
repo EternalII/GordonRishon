@@ -1,10 +1,13 @@
 from django.db import models
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 
 class Biography(models.Model):
-    content = models.TextField()
-    updated_at = models.DateTimeField(auto_now=True)
+    content_ru = CKEditor5Field()
+    content_en = CKEditor5Field(blank=True)
+    image = models.ImageField(upload_to='biography/', null=True, blank=True)
+    image_caption = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return "My Biography"
@@ -14,26 +17,28 @@ class Biography(models.Model):
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=200)
-    body = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    title_ru = models.CharField(max_length=200)
+    title_en = models.CharField(max_length=200, blank=True)
+    body_ru = models.TextField()
+    body_en = models.TextField(blank=True)
+    date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return self.title
+        return self.title_ru
 
     class Meta:
-        ordering = ['-created_at']
-
+        ordering = ['-date']
 
 class InterestingRead(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.CharField(max_length=100, blank=True)
-    review = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    title_ru = models.CharField(max_length=200)
+    title_en = models.CharField(max_length=200, blank=True)
+    author = models.CharField(max_length=100, null=True, blank=True)
+    body_ru = models.TextField()
+    body_en = models.TextField(blank=True)
+    date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return self.title
+        return self.title_ru
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['-date']

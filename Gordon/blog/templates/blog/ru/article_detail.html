@@ -1,0 +1,9 @@
+{% extends 'blog/ru/base.html' %}
+{% block title %}{{ article.title_ru }}{% endblock %}
+{% block content %}
+    <h1>{{ article.title_ru }}</h1>
+    {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
+    <div class="article-body">{{ article.body_ru|linebreaks }}</div>
+    <br>
+    <a href="{% url 'articles_ru' %}">← Назад к статьям</a>
+{% endblock %}

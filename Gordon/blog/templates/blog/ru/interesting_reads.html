@@ -1,0 +1,15 @@
+{% extends 'blog/ru/base.html' %}
+{% block title %}Интересное чтение{% endblock %}
+{% block content %}
+    <h1>Интересное чтение</h1>
+    {% for read in reads %}
+        <div class="card">
+            <strong>{{ read.title_ru }}</strong>
+            {% if read.author %}<span class="meta"> — {{ read.author }}</span>{% endif %}
+            {% if read.date %}<p class="meta">{{ read.date|date:"F Y" }}</p>{% endif %}
+            <div class="article-body">{{ read.body_ru|linebreaks }}</div>
+        </div>
+    {% empty %}
+        <p>Ничего не добавлено.</p>
+    {% endfor %}
+{% endblock %}

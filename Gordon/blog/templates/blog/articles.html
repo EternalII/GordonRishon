@@ -5,7 +5,9 @@
     {% for article in articles %}
         <div class="card">
             <a href="{% url 'article_detail' article.pk %}"><strong>{{ article.title }}</strong></a>
-            <p class="meta">{{ article.created_at|date:"F j, Y" }}</p>
+            {% if article.date %}
+                <p class="meta">{{ article.date|date:"F Y" }}</p>  <!-- e.g. "March 2019" -->
+            {% endif %}
         </div>
     {% empty %}
         <p>No articles yet.</p>

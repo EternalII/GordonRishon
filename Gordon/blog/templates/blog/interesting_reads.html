@@ -7,7 +7,9 @@
             <strong>{{ read.title }}</strong>
             {% if read.author %}<span class="meta"> by {{ read.author }}</span>{% endif %}
             <p>{{ read.review|linebreaks }}</p>
-            <p class="meta">Added {{ read.created_at|date:"F j, Y" }}</p>
+                {% if read.date %}
+                <p class="meta">{{ read.date|date:"F Y" }}</p>  <!-- e.g. "March 2019" -->
+            {% endif %}
         </div>
     {% empty %}
         <p>Nothing added yet.</p>

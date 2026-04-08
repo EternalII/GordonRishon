@@ -2,8 +2,12 @@
 {% block title %}{{ article.title }}{% endblock %}
 {% block content %}
     <h1>{{ article.title }}</h1>
-    <p class="meta">{{ article.created_at|date:"F j, Y" }}</p>
-    <div>{{ article.body|linebreaks }}</div>
+    {% if article.date %}
+        <p class="meta">{{ article.date|date:"F Y" }}</p>  <!-- e.g. "March 2019" -->
+    {% endif %}
+    <div class="article-body">
+        {{ article.body|linebreaks }}
+    </div>
     <br>
     <a href="{% url 'articles' %}">← Back to Articles</a>
 {% endblock %}

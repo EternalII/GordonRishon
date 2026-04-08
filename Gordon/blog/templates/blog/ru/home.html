@@ -1,0 +1,26 @@
+{% extends 'blog/ru/base.html' %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+    <h1>Гордон Ришон</h1>
+    <p>Здравствуйте, дорогие читатели!</p>
+
+    <h2>Последние статьи</h2>
+    {% for article in recent_articles %}
+        <div class="card">
+            <a href="{% url 'article_detail_ru' article.pk %}"><strong>{{ article.title_ru }}</strong></a>
+            {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
+        </div>
+    {% empty %}
+        <p>Статьи отсутствуют.</p>
+    {% endfor %}
+
+    <h2>Интересное чтение</h2>
+    {% for read in recent_reads %}
+        <div class="card">
+            <strong>{{ read.title_ru }}</strong>
+            {% if read.author %}<span class="meta"> — {{ read.author }}</span>{% endif %}
+        </div>
+    {% empty %}
+        <p>Ничего не добавлено.</p>
+    {% endfor %}
+{% endblock %}

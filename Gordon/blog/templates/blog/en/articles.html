@@ -1,0 +1,15 @@
+{% extends 'blog/en/base.html' %}
+{% block title %}My Articles{% endblock %}
+{% block content %}
+    <h1>My Articles</h1>
+    {% for article in articles %}
+        <div class="card">
+            <a href="{% url 'article_detail_en' article.pk %}">
+                <strong>{% if article.title_en %}{{ article.title_en }}{% else %}{{ article.title_ru }}{% endif %}</strong>
+            </a>
+            {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
+        </div>
+    {% empty %}
+        <p>No articles yet.</p>
+    {% endfor %}
+{% endblock %}
