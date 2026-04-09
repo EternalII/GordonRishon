@@ -1,28 +1,22 @@
 {% extends 'blog/en/base.html' %}
+{% load static %}
 {% block title %}Home{% endblock %}
 {% block content %}
     <h1>Gordon Rishon</h1>
+
+    <img src="{% static 'images/grandfather.jpg' %}" alt="Zinovy Gordon" style="float: right; margin: 0 0 20px 20px; max-width: 250px;">
+
     <p>Welcome, dear readers!</p>
+    <p>After a long break, our website is back up and running. This was made possible thanks to the help of my grandsons Lior and Rudolph. My greatest gratitude goes to them for a job well done.</p>
+    <p>They translated my work from Russian, and since it is not original work — it might not perfectly represent it.</p>
+    <p>On this site I share my articles that have been published in the Israeli and foreign media. I hope with time, the amount of articles published here will increase.</p>
+    <p>You will also find photos which I believe would be interesting not just for me and my loved ones.</p>
+    <p>I would also like to introduce to the visitors of this site the interesting works and opinions of other authors.</p>
+    <p>Respectfully, Zinovy Gordon.</p>
 
-    <h2>Recent Articles</h2>
-    {% for article in recent_articles %}
-        <div class="card">
-            <a href="{% url 'article_detail_en' article.pk %}">
-                <strong>{% if article.title_en %}{{ article.title_en }}{% else %}{{ article.title_ru }}{% endif %}</strong>
-            </a>
-            {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
-        </div>
-    {% empty %}
-        <p>No articles yet.</p>
-    {% endfor %}
+    <div style="clear: both;"></div>
 
-    <h2>Interesting Reads</h2>
-    {% for read in recent_reads %}
-        <div class="card">
-            <strong>{% if read.title_en %}{{ read.title_en }}{% else %}{{ read.title_ru }}{% endif %}</strong>
-            {% if read.author %}<span class="meta"> — {{ read.author }}</span>{% endif %}
-        </div>
-    {% empty %}
-        <p>Nothing added yet.</p>
-    {% endfor %}
+    <h2>A Bit About Me</h2>
+    <p>Gordon Zinoviy Leontievich — mining engineer, mine-builder.</p>
+    <p>I was born on 18 January 1936, in Stalino (Donetsk), Ukraine. For about 40 years I worked in the coal industry. I started my career as a shift engineer in a mining site, and ended it as Deputy General Director for production of the All-Union Association "Spetsshakhtoburenie". I was not a member of the party, and not because I didn't want to be. Among my various awards, the most dear to me are the "Miner's Glory" 1st, 2nd, and 3rd degree. I have the fondest memories of the people I lived and worked with. Married. Three daughters and three grandchildren.</p>
 {% endblock %}
