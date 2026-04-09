@@ -3,6 +3,9 @@
 {% block content %}
     <h1>Мои статьи</h1>
     {% for article in articles %}
+        {% if not article.body_ru %}
+        <p style="color:red;">Missing body: {{ article.title_ru }}</p>
+        {% endif %}
         <div class="card">
             <a href="{% url 'article_detail_ru' article.pk %}"><strong>{{ article.title_ru }}</strong></a>
             {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
