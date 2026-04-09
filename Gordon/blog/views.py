@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Biography, Article, InterestingRead
 
+def landing(request):
+    return render(request, 'landing.html')
+
 def home_ru(request):
     return render(request, 'blog/ru/home.html', {'lang_switch_url': '/en/'})
 
@@ -38,3 +41,9 @@ def interesting_reads_ru(request):
 def interesting_reads_en(request):
     reads = InterestingRead.objects.all()
     return render(request, 'blog/en/interesting_reads.html', {'reads': reads, 'lang_switch_url': '/ru/interesting-reads/'})
+
+def family_tree_en(request):
+    return render(request, 'blog/en/family_tree.html', {'lang_switch_url': '/ru/family-tree/'})
+
+def family_tree_ru(request):
+    return render(request, 'blog/ru/family_tree.html', {'lang_switch_url': '/en/family-tree/'})

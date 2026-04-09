@@ -19,11 +19,12 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import redirect
+from blog.views import landing
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
     path('ru/', include('blog.urls_ru')),
     path('en/', include('blog.urls_en')),
-    path('', lambda request: redirect('ru/')),
+    path('', landing),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

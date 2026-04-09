@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gordon Rishon</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="landing-wrapper">
+        <div class="landing-title">Gordon Rishon</div>
+        <div class="landing-subtitle">In Loving Memory of Zinovy Gordon (1936-2023)</div>
+        <div class="landing-photo">
+            <img src="{% static 'images/grandpa_landpage.jpg' %}" alt="Зиновий Гордон">
+        </div>
+        <div class="landing-text">
+            <div class="text-pair">
+                <p class="en">Welcome to Zinovy Gordon’s website and blog.</p>
+                <p class="ru">Добро пожаловать на сайт и в блог Зиновия Гордона.</p>
+            </div>
+
+            <div class="text-pair">
+                <p class="en">
+                    This space is dedicated to honoring his life, legacy, and the memories he shared with family, friends, and colleagues.
+                </p>
+                <p class="ru">
+                    Это пространство посвящено увековечиванию его жизни, наследия и воспоминаний, которыми он делился с семьей, друзьями и коллегами.
+                </p>
+            </div>
+        </div>
+        <div class="divider">✦ ✦ ✦</div>
+
+        <div class="landing-buttons">
+            <a href="/ru/" class="lang-btn">Русский</a>
+            <a href="/en/" class="lang-btn">English</a>
+        </div>
+    </div>
+</body>
+</html>

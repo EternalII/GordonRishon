@@ -27,7 +27,7 @@ class Article(models.Model):
         return self.title_ru
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['title_ru']
 
 class InterestingRead(models.Model):
     title_ru = models.CharField(max_length=200)
