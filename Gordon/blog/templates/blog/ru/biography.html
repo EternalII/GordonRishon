@@ -4,10 +4,12 @@
     <h1>Биография</h1>
     {% if bio %}
         {% if bio.image %}
-            <img src="{{ bio.image.url }}" alt="Фото">
-            {% if bio.image_caption %}
-                <p class="meta">{{ bio.image_caption }}</p>
-            {% endif %}
+            <div class="bio-image-wrap">
+                <img src="{{ bio.image.url }}" alt="Фото">
+                {% if bio.image_caption %}
+                    <span class="meta">{{ bio.image_caption }}</span>
+                {% endif %}
+            </div>
         {% endif %}
         <div class="article-body">{{ bio.content_ru|safe }}</div>
     {% else %}

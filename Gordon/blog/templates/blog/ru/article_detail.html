@@ -5,5 +5,5 @@
     {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
     <div class="article-body">{{ article.body_ru|linebreaks }}</div>
     <br>
-    <a href="{% url 'articles_ru' %}">← Назад к статьям</a>
+    <a href="{% url 'articles_ru' %}" class="back-link">← Назад к статьям</a>
 {% endblock %}

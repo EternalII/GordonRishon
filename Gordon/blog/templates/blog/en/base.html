@@ -5,33 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Gordon Rishon{% endblock %}</title>
-    <style>
-        body { font-family: Georgia, serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; }
-        nav { border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
-        nav a { margin-right: 20px; text-decoration: none; color: #555; font-family: sans-serif; }
-        nav a:hover { color: #000; }
-        .lang-toggle { font-family: sans-serif; font-size: 0.9em; }
-        .lang-toggle a { margin-right: 0; margin-left: 10px; }
-        h1, h2 { font-weight: normal; }
-        .meta { color: #888; font-size: 0.85em; font-family: sans-serif; }
-        .card { border-bottom: 1px solid #eee; padding: 15px 0; }
-        a { color: #2a6496; }
-        .article-body { line-height: 1.8; font-size: 1.05em; }
-        .article-body p { margin-bottom: 1.2em; }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav>
-        <div>
-            <a href="{% url 'home_en' %}">Home</a>
-            <a href="{% url 'biography_en' %}">Biography</a>
-            <a href="{% url 'articles_en' %}">My Articles</a>
-            <a href="{% url 'interesting_reads_en' %}">Interesting Reads</a>
-        </div>
-        <div class="lang-toggle">
-            <a href="{% url 'home_en' %}">EN</a> | <a href="{% url 'home_ru' %}">RU</a>
-        </div>
-    </nav>
-    {% block content %}{% endblock %}
+    <div class="page-wrapper">
+        <header class="site-header">
+            <div class="site-title">Gordon Rishon</div>
+            <div class="site-subtitle">Zinovy Gordon</div>
+        </header>
+        <nav>
+            <div class="nav-links">
+                <a href="{% url 'home_en' %}">Home</a>
+                <a href="{% url 'biography_en' %}">Biography</a>
+                <a href="{% url 'articles_en' %}">My Articles</a>
+                <a href="{% url 'interesting_reads_en' %}">Interesting Reads</a>
+            </div>
+            <div class="lang-toggle">
+                <a href="#">EN</a>
+                <span class="separator">|</span>
+                <a href="{{ lang_switch_url }}">RU</a>
+            </div>
+        </nav>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            © Zinovy Gordon
+        </footer>
+    </div>
 </body>
 </html>

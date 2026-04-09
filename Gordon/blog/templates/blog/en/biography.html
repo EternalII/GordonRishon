@@ -4,16 +4,18 @@
     <h1>Biography</h1>
     {% if bio %}
         {% if bio.image %}
-            <img src="{{ bio.image.url }}" alt="Photo">
-            {% if bio.image_caption %}
-                <p class="meta">{{ bio.image_caption }}</p>
-            {% endif %}
+            <div class="bio-image-wrap">
+                <img src="{{ bio.image.url }}" alt="Photo">
+                {% if bio.image_caption %}
+                    <span class="meta">{{ bio.image_caption }}</span>
+                {% endif %}
+            </div>
         {% endif %}
         {% if bio.content_en %}
             <div class="article-body">{{ bio.content_en|safe }}</div>
         {% else %}
             <div class="article-body">{{ bio.content_ru|safe }}</div>
-            <p class="meta">Translation coming soon.</p>
+            <p class="translation-notice">Translation coming soon.</p>
         {% endif %}
     {% else %}
         <p>Biography coming soon.</p>

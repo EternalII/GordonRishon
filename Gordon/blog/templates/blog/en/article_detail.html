@@ -7,7 +7,7 @@
         <div class="article-body">{{ article.body_en|linebreaks }}</div>
     {% else %}
         <div class="article-body">{{ article.body_ru|linebreaks }}</div>
-        <p class="meta">Translation coming soon.</p>
+        <p class="translation-notice">Translation coming soon.</p>
     {% endif %}
     <br>
     <a href="{% url 'articles_en' %}">← Back to Articles</a>
