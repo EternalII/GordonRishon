@@ -2,14 +2,51 @@
 {% block title %}My Articles{% endblock %}
 {% block content %}
     <h1>My Articles</h1>
-    {% for article in articles %}
-        <div class="card">
-            <a href="{% url 'article_detail_en' article.pk %}">
-                <strong>{% if article.title_en %}{{ article.title_en }}{% else %}{{ article.title_ru }}{% endif %}</strong>
-            </a>
-            {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
-        </div>
-    {% empty %}
-        <p>No articles yet.</p>
-    {% endfor %}
+
+    <input type="text" id="search-input" placeholder="Search by title..." class="search-input">
+
+    <div class="articles-grid" id="articles-grid">
+        {% for article in articles %}
+                <a href="{% url 'article_detail_en' article.pk %}" class="article-card">
+                    <div class="article-card-title">{% if article.title_en %}{{ article.title_en }}{% else %}{{ article.title_ru }}{% endif %}</div>
+                    {% if article.date %}
+                        <div class="meta">{{ article.date|date:"F Y" }}</div>
+                    {% endif %}
+                    <div class="article-card-excerpt">
+                        {% if not article.body_ru %}
+                            <p style="color:red;">Missing body: {{ article.title_ru }}</p>
+                        {% else %}
+                            {{ article.body_ru|truncatewords:30 }}
+                        {% endif %}
+                    </div>
+                </a>
+        {% empty %}
+            <p>No articles yet.</p>
+        {% endfor %}
+    </div>
+
+    <p class="no-results" id="no-results" style="display:none;">Nothing found.</p>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const cards = document.querySelectorAll('.article-card');
+        const noResults = document.getElementById('no-results');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            let visible = 0;
+
+            cards.forEach(card => {
+                const title = card.querySelector('.article-card-title').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    card.style.display = 'flex';
+                    visible++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = visible === 0 ? 'block' : 'none';
+        });
+    </script>
 {% endblock %}
