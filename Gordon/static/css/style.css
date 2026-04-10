@@ -392,6 +392,30 @@ footer {
     letter-spacing: 0.05em;
 }
 
+.visitor-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-family: 'EB Garamond', serif;
+    font-style: normal;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+}
+
+.visitor-counter-icon {
+    font-size: 0.9rem;
+}
+
+.visitor-counter-count {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 600px) {
     .page-wrapper { padding: 0 18px; }

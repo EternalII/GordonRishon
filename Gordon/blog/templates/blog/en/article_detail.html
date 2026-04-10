@@ -3,12 +3,25 @@
 {% block content %}
     <h1>{% if article.title_en %}{{ article.title_en }}{% else %}{{ article.title_ru }}{% endif %}</h1>
     {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
+    
+    {% if article.image and article.image_position == 'top' %}
+        <img src="{{ article.image.url }}" alt="{{ article.title_ru }}" style="max-width: 100%; margin-bottom: 24px;">
+    {% endif %}
+
     {% if article.body_en %}
-        <div class="article-body">{{ article.body_en|linebreaks }}</div>
+        <div class="article-body">{{ article.body_en|safe }}</div>
+        {% if article.image and article.image_position == 'bottom' %}
+            <img src="{{ article.image.url }}" alt="{{ article.title_ru }}" style="max-width: 100%; margin-bottom: 24px;">
+        {% endif %}
     {% else %}
-        <div class="article-body">{{ article.body_ru|linebreaks }}</div>
+        <div class="article-body">{{ article.body_ru|safe }}</div>
+        {% if article.image and article.image_position == 'bottom' %}
+            <img src="{{ article.image.url }}" alt="{{ article.title_ru }}" style="max-width: 100%; margin-bottom: 24px;">
+        {% endif %}
         <p class="translation-notice">Translation coming soon.</p>
     {% endif %}
+
+
     <br>
     <a href="{% url 'articles_en' %}">← Back to Articles</a>
 {% endblock %}

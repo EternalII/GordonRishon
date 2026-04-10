@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'blog.middleware.VisitorCounterMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -63,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.context_processors.visitor_counter',
             ],
         },
     },
@@ -74,7 +76,7 @@ CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': ['heading', '|', 'bold', 'italic', 'underline', '|',
                     'bulletedList', 'numberedList', '|',
-                    'blockQuote', 'indent', 'outdent', '|',
+                    'link','blockQuote', 'indent', 'outdent', '|',
                     'undo', 'redo'],
     }
 }
