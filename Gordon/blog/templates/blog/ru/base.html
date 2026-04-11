@@ -12,6 +12,11 @@
         <header class="site-header">
             <div class="site-title">Гордон Ришон</div>
             <div class="site-subtitle">Зиновий Гордон</div>
+            <div class="lang-toggle">
+                <a href="{{ lang_switch_url }}">EN</a>
+                <span class="separator">|</span>
+                <a href="#">RU</a>
+            </div>
         </header>
         <nav>
             <div class="nav-links">
@@ -20,11 +25,7 @@
                 <a href="{% url 'articles_ru' %}">Мои статьи</a>
                 <a href="{% url 'interesting_reads_ru' %}">Интересное</a>
                 <a href="{% url 'family_tree_ru' %}">Генеалогическое древо</a>
-            </div>
-            <div class="lang-toggle">
-                <a href="{{ lang_switch_url }}">EN</a>
-                <span class="separator">|</span>
-                <a href="#">RU</a>
+                <a href="{% url 'photos_ru' %}">Фотографии</a>
             </div>
         </nav>
         <main>
@@ -40,5 +41,6 @@
             </div>
         </footer>
     </div>
+    {% block overlays %}{% endblock %}
 </body>
 </html>

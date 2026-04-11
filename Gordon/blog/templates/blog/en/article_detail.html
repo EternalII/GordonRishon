@@ -1,7 +1,16 @@
 {% extends 'blog/en/base.html' %}
 {% block title %}{% if article.title_en %}{{ article.title_en }}{% else %}{{ article.title_ru }}{% endif %}{% endblock %}
 {% block content %}
-    <h1>{% if article.title_en %}{{ article.title_en }}{% else %}{{ article.title_ru }}{% endif %}</h1>
+    {% if article.title_en %}
+        <div class="articles-disclaimer">These articles are translated with the assistance of artificial intelligence (AI). 
+            While efforts are made to ensure the content is accurate, relevant, and up to date, 
+            AI-generated material may contain errors, omissions, or interpretations that do not reflect verified facts or human judgment.
+        </div>
+            <h1>{{ article.title_en }}</h1>
+        {% else %}
+            <h1>{{ article.title_ru }}</h1>
+        {% endif %}
+    
     {% if article.date %}<p class="meta">{{ article.date|date:"F Y" }}</p>{% endif %}
     
     {% if article.image and article.image_position == 'top' %}

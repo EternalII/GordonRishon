@@ -12,6 +12,11 @@
         <header class="site-header">
             <div class="site-title">Gordon Rishon</div>
             <div class="site-subtitle">Zinovy Gordon</div>
+            <div class="lang-toggle">
+                <a href="#">EN</a>
+                <span class="separator">|</span>
+                <a href="{{ lang_switch_url }}">RU</a>
+            </div>
         </header>
         <nav>
             <div class="nav-links">
@@ -20,11 +25,7 @@
                 <a href="{% url 'articles_en' %}">My Articles</a>
                 <a href="{% url 'interesting_reads_en' %}">Interesting Reads</a>
                 <a href="{% url 'family_tree_en' %}">Family Tree</a>
-            </div>
-            <div class="lang-toggle">
-                <a href="#">EN</a>
-                <span class="separator">|</span>
-                <a href="{{ lang_switch_url }}">RU</a>
+                <a href="{% url 'photos_en' %}">Photos</a>
             </div>
         </nav>
         <main>
@@ -40,5 +41,6 @@
             </div>
         </footer>
     </div>
+    {% block overlays %}{% endblock %}
 </body>
 </html>

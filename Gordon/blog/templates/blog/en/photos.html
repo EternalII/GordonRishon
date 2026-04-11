@@ -1,0 +1,55 @@
+{% extends 'blog/en/base.html' %}
+{% block title %}Photos{% endblock %}
+{% block content %}
+    <h1>Family Photos</h1>
+    <div class="divider">✦ ✦ ✦</div>
+
+    {% if photos %}
+        <div class="photo-grid">
+            {% for photo in photos %}
+                <div class="photo-card" onclick="openLightbox('{{ photo.image.url }}', '{{ photo.caption_en|default:photo.caption_ru }}')">
+                    <div class="photo-wrap">
+                        <img src="{{ photo.image.url }}" alt="{{ photo.caption_en|default:photo.caption_ru }}">
+                        <div class="photo-overlay">
+                            <span>&#128269;</span>
+                        </div>
+                    </div>
+                    {% if photo.caption_en or photo.caption_ru %}
+                        <p class="photo-caption">{{ photo.caption_en|default:photo.caption_ru }}</p>
+                    {% endif %}
+                    {% if photo.date %}
+                        <p class="meta">{{ photo.date|date:"F Y" }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Photos coming soon.</p>
+    {% endif %}
+{% endblock %}
+{% block overlays %}
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-inner">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <img src="" id="lightbox-img" alt="">
+            <p class="lightbox-caption" id="lightbox-caption"></p>
+        </div>
+    </div>
+
+    <script>
+        function openLightbox(url, caption) {
+            document.getElementById('lightbox-img').src = url;
+            document.getElementById('lightbox-caption').textContent = caption;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+{% endblock %}

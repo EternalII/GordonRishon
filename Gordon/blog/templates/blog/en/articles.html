@@ -3,6 +3,11 @@
 {% block content %}
     <h1>My Articles</h1>
 
+    <div class="articles-disclaimer">These articles are translated with the assistance of artificial intelligence (AI). 
+        While efforts are made to ensure the content is accurate, relevant, and up to date, 
+        AI-generated material may contain errors, omissions, or interpretations that do not reflect verified facts or human judgment.
+    </div>
+
     <input type="text" id="search-input" placeholder="Search by title..." class="search-input">
 
     <div class="articles-grid" id="articles-grid">
@@ -15,8 +20,10 @@
                     <div class="article-card-excerpt">
                         {% if not article.body_ru %}
                             <p style="color:red;">Missing body: {{ article.title_ru }}</p>
-                        {% else %}
+                        {% elif not article.body_en %}
                             {{ article.body_ru|truncatewords:30 }}
+                        {% else %}
+                            {{ article.body_en|truncatewords:30 }}
                         {% endif %}
                     </div>
                 </a>

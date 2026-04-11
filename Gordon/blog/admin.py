@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Biography, Article, InterestingRead
+from .models import Biography, Article, InterestingRead , VisitorCounter, FamilyPhoto
 
 @admin.register(Biography)
 class BiographyAdmin(admin.ModelAdmin):
@@ -14,3 +14,7 @@ class ArticleAdmin(admin.ModelAdmin):
 class InterestingReadAdmin(admin.ModelAdmin):
     list_display = ('title_ru', 'author', 'date')
     search_fields = ('title_ru', 'author')
+
+@admin.register(FamilyPhoto)
+class FamilyPhotoAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'date', 'order')

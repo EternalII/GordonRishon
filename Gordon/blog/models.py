@@ -48,6 +48,19 @@ class InterestingRead(models.Model):
     class Meta:
         ordering = ['-date']
 
+class FamilyPhoto(models.Model):
+    image = models.ImageField(upload_to='family/')
+    caption_ru = models.CharField(max_length=300, blank=True)
+    caption_en = models.CharField(max_length=300, blank=True)
+    date = models.DateField(null=True, blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.caption_ru or f"Photo {self.id}"
+
+    class Meta:
+        ordering = ['order']
+
 class VisitorCounter(models.Model):
     count = models.IntegerField(default=0)
 

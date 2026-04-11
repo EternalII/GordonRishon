@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Biography, Article, InterestingRead
+from .models import Biography, Article, InterestingRead, FamilyPhoto
 
 def landing(request):
     return render(request, 'landing.html')
@@ -47,3 +47,11 @@ def family_tree_en(request):
 
 def family_tree_ru(request):
     return render(request, 'blog/ru/family_tree.html', {'lang_switch_url': '/en/family-tree/'})
+
+def photos_ru(request):
+    photos = FamilyPhoto.objects.all()
+    return render(request, 'blog/ru/photos.html', {'photos': photos, 'lang_switch_url': '/en/photos/'})
+
+def photos_en(request):
+    photos = FamilyPhoto.objects.all()
+    return render(request, 'blog/en/photos.html', {'photos': photos, 'lang_switch_url': '/ru/photos/'})
