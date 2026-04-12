@@ -66,7 +66,7 @@ body {
 
 /* ── Wrapper ────────────────────────────────────────────────── */
 .page-wrapper {
-    width: clamp(320px, 50%, 1200px);
+    width: clamp(320px, 60%, 1200px);
     margin: 0 auto;
     padding: 0 30px;
     background-color: var(--paper);
@@ -787,4 +787,186 @@ footer {
 
 @media (max-width: 900px) and (min-width: 601px) {
     .photo-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Guestbook ──────────────────────────────────────────────── */
+.guestbook-form-wrap {
+    margin: 32px 0;
+    background: #fffef9;
+    border: 1px solid var(--border);
+    padding: 40px 48px;
+    position: relative;
+    box-shadow: 3px 3px 12px var(--shadow), 
+                6px 6px 0px #e8e0d0,
+                9px 9px 0px #ddd5c4;
+}
+
+.guestbook-form-wrap::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.guestbook-form-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.guestbook-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.guestbook-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--border);
+    padding: 8px 4px;
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.guestbook-input:focus {
+    border-bottom-color: var(--accent);
+}
+
+.guestbook-textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--border);
+    padding: 8px 4px;
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    width: 100%;
+    outline: none;
+    min-height: 160px;
+    resize: vertical;
+    line-height: 2;
+    background-image: repeating-linear-gradient(
+        transparent,
+        transparent 31px,
+        #e8e0d0 31px,
+        #e8e0d0 32px
+    );
+    transition: border-color 0.2s ease;
+}
+
+.guestbook-textarea:focus {
+    border-bottom-color: var(--accent);
+}
+
+.guestbook-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.guestbook-btn {
+    display: block;
+    margin: 24px auto 0;
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 36px;
+    background: transparent;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.guestbook-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.guestbook-success {
+    background: #f0f7f0;
+    border-left: 3px solid #4a8a4a;
+    padding: 14px 20px;
+    font-style: italic;
+    margin-bottom: 24px;
+    color: #2a5a2a;
+}
+
+.guestbook-error {
+    background: #fff0f0;
+    border-left: 3px solid var(--accent);
+    padding: 14px 20px;
+    font-style: italic;
+    margin-bottom: 24px;
+    color: var(--accent);
+}
+
+.guestbook-entry {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+}
+
+.guestbook-entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.guestbook-subject {
+    font-style: italic;
+    color: var(--ink-light);
+}
+
+.guestbook-entry-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink-light);
+}
+
+.guestbook-reply {
+    margin-top: 16px;
+    margin-left: 32px;
+    padding-left: 16px;
+    border-left: 2px solid var(--border);
+}
+
+.reply-toggle {
+    margin-top: 12px;
+}
+
+.reply-toggle summary {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.9rem;
+    letter-concting: 0.06em;
+    color: var(--ink-faint);
+    cursor: pointer;
+    text-transform: uppercase;
+    font-style: italic;
+    list-style: none;
+    transition: color 0.2s ease;
+}
+
+.reply-toggle summary:hover {
+    color: var(--accent);
+}
+
+.reply-form {
+    margin-top: 12px;
 }

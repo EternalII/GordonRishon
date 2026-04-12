@@ -1,0 +1,103 @@
+{% extends 'blog/ru/base.html' %}
+{% block title %}Гостевая книга{% endblock %}
+{% block content %}
+    <h1>Гостевая книга</h1>
+    <div class="divider">✦ ✦ ✦</div>
+
+    {% if success %}
+        <div class="guestbook-success">
+            Спасибо! Ваше сообщение отправлено и ожидает проверки.
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="guestbook-error">{{ error }}</div>
+    {% endif %}
+
+    <!-- Submit Form -->
+    <div class="guestbook-form-wrap">
+        <h2>Оставить запись</h2>
+        <form method="post" class="guestbook-form">
+            {% csrf_token %}
+            <input type="text" name="honeypot" style="display:none;">
+            <input type="text" name="name" placeholder="Ваше имя (необязательно)" class="guestbook-input" maxlength="100">
+            <input type="text" name="subject" placeholder="Тема (необязательно)" class="guestbook-input" maxlength="200">
+            <textarea name="body" placeholder="Ваше сообщение *" class="guestbook-textarea" required maxlength="2000" id="main-body-input"></textarea>
+            <p class="meta" id="main-char-count">Осталось 2000 символов</p>
+            <button type="submit" class="guestbook-btn">Отправить</button>
+        </form>
+    </div>
+
+    <script>
+        const bodyInput = document.getElementById('main-body-input');
+        const charCount = document.getElementById('main-char-count');
+        bodyInput.addEventListener('input', () => {
+            const remaining = 2000 - bodyInput.value.length;
+            charCount.textContent = `Осталось ${remaining} символов`;
+            if (remaining < 100) {
+                charCount.style.color = 'red';
+            } else if (remaining < 300) {
+                charCount.style.color = 'orange';
+            } else {
+                charCount.style.color = '';
+            }
+        });
+    </script>
+
+    <div class="divider">✦ ✦ ✦</div>
+
+    {% if entries %}
+        {% for entry in entries %}
+            <div class="guestbook-entry" id="entry-{{ entry.id }}">
+                <div class="guestbook-entry-header">
+                    <strong>{{ entry.name|default:"Аноним" }}</strong>
+                    {% if entry.subject %}
+                        <span class="guestbook-subject">— {{ entry.subject }}</span>
+                    {% endif %}
+                    <span class="meta">{{ entry.date|date:"j F Y, H:i" }}</span>
+                </div>
+                <div class="guestbook-entry-body">{{ entry.body|linebreaks }}</div>
+
+                {% for reply in entry.replies.all %}
+                    {% if reply.approved %}
+                        <div class="guestbook-reply">
+                            <div class="guestbook-entry-header">
+                                <strong>{{ reply.name|default:"Аноним" }}</strong>
+                                <span class="meta">{{ reply.date|date:"j F Y, H:i" }}</span>
+                            </div>
+                            <div class="guestbook-entry-body">{{ reply.body|linebreaks }}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <details class="reply-toggle">
+                    <summary>Ответить</summary>
+                    <form method="post" class="guestbook-form reply-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="parent_id" value="{{ entry.id }}">
+                        <input type="text" name="honeypot" style="display:none;">
+                        <input type="text" name="name" placeholder="Ваше имя (необязательно)" class="guestbook-input" maxlength="100">
+                        <textarea name="body" placeholder="Ваш ответ *" class="guestbook-textarea" required maxlength="2000" id="reply-body-{{ entry.id }}"></textarea>
+                        <p class="meta" id="reply-count-{{ entry.id }}">Осталось 2000 символов</p>
+                        <script>
+                            (function() {
+                                const input = document.getElementById('reply-body-{{ entry.id }}');
+                                const count = document.getElementById('reply-count-{{ entry.id }}');
+                                input.addEventListener('input', () => {
+                                    const remaining = 2000 - input.value.length;
+                                    count.textContent = `Осталось ${remaining} символов`;
+                                    if (remaining < 100) count.style.color = 'red';
+                                    else if (remaining < 300) count.style.color = 'orange';
+                                    else count.style.color = '';
+                                });
+                            })();
+                        </script>
+                        <button type="submit" class="guestbook-btn">Отправить ответ</button>
+                    </form>
+                </details>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Записей пока нет. Будьте первым!</p>
+    {% endif %}
+{% endblock %}

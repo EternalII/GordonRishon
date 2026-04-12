@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ckeditor_5',
+    'django_ratelimit',
     'blog',
+    'guestbook',
 ]
 
 MIDDLEWARE = [
@@ -89,8 +91,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'guestbook': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'guestbook.sqlite3',
     }
 }
+
+DATABASE_ROUTERS = ['guestbook.router.GuestbookRouter']
 
 
 # Password validation
