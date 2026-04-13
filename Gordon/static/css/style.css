@@ -954,7 +954,7 @@ footer {
 .reply-toggle summary {
     font-family: 'EB Garamond', serif;
     font-size: 0.9rem;
-    letter-concting: 0.06em;
+    letter-spacing: 0.06em;
     color: var(--ink-faint);
     cursor: pointer;
     text-transform: uppercase;
