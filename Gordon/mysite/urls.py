@@ -20,8 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from blog.views import landing
 
-handler403 = 'blog.views.handler403'
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor5/', include('django_ckeditor_5.urls')),

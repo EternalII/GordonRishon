@@ -58,7 +58,6 @@ def photos_en(request):
     photos = FamilyPhoto.objects.all()
     return render(request, 'blog/en/photos.html', {'photos': photos, 'lang_switch_url': '/ru/photos/'})
 
-@ratelimit(key='ip', rate='3/h', method='POST', block=True)
 def guestbook_ru(request):
     entries = GuestEntry.objects.using('guestbook').filter(approved=True, parent=None)
     error = None
@@ -101,7 +100,6 @@ def guestbook_ru(request):
     })
 
 
-@ratelimit(key='ip', rate='3/h', method='POST', block=True)
 def guestbook_en(request):
     entries = GuestEntry.objects.using('guestbook').filter(approved=True, parent=None)
     error = None
@@ -142,14 +140,3 @@ def guestbook_en(request):
         'success': success,
         'lang_switch_url': '/ru/guestbook/',
     })
-
-from django_ratelimit.exceptions import Ratelimited
-
-def handler403(request, exception=None):
-    if isinstance(exception, Ratelimited):
-        return render(request, 'blog/en/guestbook.html', {
-            'error': 'You have submitted too many messages. Please try again later.',
-            'entries': GuestEntry.objects.using('guestbook').filter(approved=True, parent=None),
-            'lang_switch_url': '/ru/guestbook/',
-        }, status=429)
-    return render(request, '403.html', status=403)

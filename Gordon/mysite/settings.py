@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ckeditor_5',
-    'django_ratelimit',
     'blog',
     'guestbook',
 ]
@@ -99,7 +98,6 @@ DATABASES = {
 }
 
 DATABASE_ROUTERS = ['guestbook.router.GuestbookRouter']
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
