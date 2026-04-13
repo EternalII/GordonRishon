@@ -67,8 +67,8 @@ body {
 /* ── Wrapper ────────────────────────────────────────────────── */
 .page-wrapper {
     width: clamp(320px, 60%, 1200px);
-    margin: 0 auto;
-    padding: 0 30px;
+    margin: 50px auto;
+    padding: 0 90px;
     background-color: var(--paper);
     box-shadow: 0 0 60px var(--shadow);
     min-height: 100vh;
@@ -108,8 +108,9 @@ nav {
     display: flex;
     align-items: center;
     padding: 14px 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 3px double var(--border);
     margin-bottom: 50px;
+    animation: fadeInUp 0.7s ease forwards;
 }
 
 .nav-links {
@@ -123,6 +124,7 @@ nav {
 
 nav a {
     font-family: 'EB Garamond', serif;
+    word-break: break-word;
     font-size: 0.95rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -187,6 +189,19 @@ nav a:hover::after {
 main {
     padding-bottom: 60px;
     animation: fadeInUp 0.9s ease forwards;
+}
+
+.page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+
+    text-align: center;
+    position: relative;
 }
 
 /* ── Typography ─────────────────────────────────────────────── */
@@ -278,16 +293,90 @@ a:hover {
     margin-top: 20px;
 }
 
+/* ── About Section ─────────────────────────────────────────── */
 .about-section {
-    background-color: var(--cream);
-    border-left: 3px solid var(--accent);
-    padding: 24px 28px;
-    margin: 40px 0;
+    position: relative;
+    background: linear-gradient(135deg, var(--cream) 0%, #fff 100%);
+    border-left: 4px solid var(--accent);
+    padding: 12px 36px;
+    margin: 48px 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
 }
 
+/* subtle decorative accent */
+/* .about-section::before {
+    content: "About";
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.4;
+    font-weight: 600;
+} */
+
+/* heading (if you add one) */
+.about-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    font-family: 'Playfair Display', serif;
+    color: var(--ink-strong);
+}
+
+/* paragraph styling */
 .about-section p {
-    margin-bottom: 0;
-    font-size: 1rem;
+    margin-bottom: 18px;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--ink);
+}
+
+/* emphasize first paragraph */
+.about-section p:first-of-type {
+    font-size: 1.08rem;
+    color: var(--ink-strong);
+}
+
+/* subtle divider line */
+/* .about-section p + p {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 14px;
+} */
+
+/* optional avatar */
+.about-section .about-avatar {
+    float: left;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin-right: 18px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* clear float */
+.about-section::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* responsive tweak */
+@media (max-width: 600px) {
+    .about-section {
+        padding: 24px;
+    }
+
+    .about-section .about-avatar {
+        float: none;
+        display: block;
+        margin: 0 auto 16px;
+    }
 }
 
 /* ── Article Cards ──────────────────────────────────────────── */
@@ -958,8 +1047,8 @@ footer {
     color: var(--ink-faint);
     cursor: pointer;
     text-transform: uppercase;
-    font-style: italic;
-    list-style: none;
+    font-style: normal;
+    /* list-style: none; */
     transition: color 0.2s ease;
 }
 

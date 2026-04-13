@@ -1,7 +1,7 @@
 {% extends 'blog/en/base.html' %}
 {% block title %}Interesting Reads{% endblock %}
 {% block content %}
-    <h1>Interesting Reads</h1>
+    <h1 class="page-title">Interesting Reads</h1>
     {% for read in reads %}
         <div class="card">
             <strong>{% if read.title_en %}{{ read.title_en }}{% else %}{{ read.title_ru }}{% endif %}</strong>

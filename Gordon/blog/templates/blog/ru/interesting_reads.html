@@ -1,7 +1,7 @@
 {% extends 'blog/ru/base.html' %}
 {% block title %}Интересное чтение{% endblock %}
 {% block content %}
-    <h1>Интересное чтение</h1>
+    <h1 class="page-title">Интересное чтение</h1>
     {% for read in reads %}
         <div class="card">
             <strong>{{ read.title_ru }}</strong>
