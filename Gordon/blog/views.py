@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Biography, Article, InterestingRead, FamilyPhoto
 from guestbook.models import GuestEntry
-from django_ratelimit.decorators import ratelimit
 
 def landing(request):
     return render(request, 'landing.html')
