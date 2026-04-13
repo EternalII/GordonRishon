@@ -4,7 +4,7 @@ from django.utils import timezone
 class GuestEntry(models.Model):
     name = models.CharField(max_length=100, blank=True)
     subject = models.CharField(max_length=200, blank=True)
-    body = models.TextField(max_length=2000)
+    body = models.TextField(max_length=20000)
     date = models.DateTimeField(default=timezone.now)
     approved = models.BooleanField(default=False)
     parent = models.ForeignKey(
@@ -18,3 +18,9 @@ class GuestEntry(models.Model):
 
     class Meta:
         ordering = ['-date']
+
+class PendingGuestEntry(GuestEntry):
+    class Meta:
+        proxy = True
+        verbose_name = "Pending Entry"
+        verbose_name_plural = "Pending Entries"
