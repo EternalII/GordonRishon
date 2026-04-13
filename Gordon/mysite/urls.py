@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 from blog.views import landing
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
     path('ru/', include('blog.urls_ru')),
     path('en/', include('blog.urls_en')),
