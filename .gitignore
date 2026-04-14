@@ -4,3 +4,4 @@ __pycache__/
 db.sqlite3
 guestbook.sqlite3
 .env
+Gordon/mysite/settings.py
