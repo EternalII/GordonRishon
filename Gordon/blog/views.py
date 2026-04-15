@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Biography, Article, InterestingRead, FamilyPhoto
 from guestbook.models import GuestEntry
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def landing(request):
     return render(request, 'landing.html')
@@ -62,6 +63,15 @@ def guestbook_ru(request):
     error = None
     success = False
 
+    paginator = Paginator(entries, 10)  # 10 entries per page
+    page = request.GET.get('page')
+    try:
+        page_entries = paginator.page(page)
+    except PageNotAnInteger:
+        page_entries = paginator.page(1)
+    except EmptyPage:
+        page_entries = paginator.page(paginator.num_pages)
+
     if request.method == 'POST':
         if request.POST.get('honeypot'):
             return redirect('guestbook_ru')
@@ -92,7 +102,8 @@ def guestbook_ru(request):
             success = True
 
     return render(request, 'blog/ru/guestbook.html', {
-        'entries': entries,
+        'entries': page_entries,
+        'page_obj': page_entries,
         'error': error,
         'success': success,
         'lang_switch_url': '/en/guestbook/',
@@ -100,9 +111,18 @@ def guestbook_ru(request):
 
 
 def guestbook_en(request):
-    entries = GuestEntry.objects.using('guestbook').filter(approved=True, parent=None)
+    entries = GuestEntry.objects.using('guestbook').filter(approved=True, parent=None).order_by('-date')
     error = None
     success = False
+    
+    paginator = Paginator(entries, 10)  # 10 entries per page
+    page = request.GET.get('page')
+    try:
+        page_entries = paginator.page(page)
+    except PageNotAnInteger:
+        page_entries = paginator.page(1)
+    except EmptyPage:
+        page_entries = paginator.page(paginator.num_pages)
 
     if request.method == 'POST':
         if request.POST.get('honeypot'):
@@ -134,7 +154,8 @@ def guestbook_en(request):
             success = True
 
     return render(request, 'blog/en/guestbook.html', {
-        'entries': entries,
+        'entries': page_entries,
+        'page_obj': page_entries,
         'error': error,
         'success': success,
         'lang_switch_url': '/ru/guestbook/',
