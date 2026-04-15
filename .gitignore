@@ -1,7 +1,10 @@
 venv/
 __pycache__/
 *.pyc
+.env
 db.sqlite3
 guestbook.sqlite3
-.env
+Gordon/mysite/guestbook.sqlite3
 Gordon/mysite/settings.py
+Gordon/mysite/urls.py
+staticfiles/
