@@ -3,6 +3,45 @@ from .models import Biography, Article, InterestingRead, FamilyPhoto
 from guestbook.models import GuestEntry
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+def _get_guestbook_page(request, queryset, per_page=10):
+    paginator = Paginator(queryset, per_page)
+    page = request.GET.get('page')
+    try:
+        return paginator.page(page)
+    except PageNotAnInteger:
+        return paginator.page(1)
+    except EmptyPage:
+        return paginator.page(paginator.num_pages)
+
+
+def _process_guestbook_form(request, messages):
+    name = request.POST.get('name', '').strip()
+    subject = request.POST.get('subject', '').strip()
+    body = request.POST.get('body', '').strip()
+    parent_id = request.POST.get('parent_id')
+
+    if len(name) > 100:
+        return messages['name_len'], False
+    elif len(subject) > 200:
+        return messages['subject_len'], False
+    elif not body or len(body) < 10:
+        return messages['body_short'], False
+    elif len(body) > 2000:
+        return messages['body_long'], False
+
+    parent = None
+    if parent_id:
+        try:
+            parent = GuestEntry.objects.using('guestbook').get(id=parent_id)
+        except GuestEntry.DoesNotExist:
+            pass
+
+    GuestEntry.objects.using('guestbook').create(
+        name=name, subject=subject, body=body, parent=parent
+    )
+    return None, True
+
+
 def landing(request):
     return render(request, 'landing.html')
 
@@ -59,47 +98,22 @@ def photos_en(request):
     return render(request, 'blog/en/photos.html', {'photos': photos, 'lang_switch_url': '/ru/photos/'})
 
 def guestbook_ru(request):
-    entries = GuestEntry.objects.using('guestbook').filter(approved=True, parent=None)
+    entries = GuestEntry.objects.using('guestbook').filter(approved=True, parent=None).order_by('-date')
     error = None
     success = False
 
-    paginator = Paginator(entries, 10)  # 10 entries per page
-    page = request.GET.get('page')
-    try:
-        page_entries = paginator.page(page)
-    except PageNotAnInteger:
-        page_entries = paginator.page(1)
-    except EmptyPage:
-        page_entries = paginator.page(paginator.num_pages)
+    if request.method == 'POST' and request.POST.get('honeypot'):
+        return redirect('guestbook_ru')
 
     if request.method == 'POST':
-        if request.POST.get('honeypot'):
-            return redirect('guestbook_ru')
+        error, success = _process_guestbook_form(request, {
+            'name_len': 'Имя слишком длинное. Пожалуйста, ограничьтесь 100 символами.',
+            'subject_len': 'Тема слишком длинная. Пожалуйста, ограничьтесь 200 символами.',
+            'body_short': 'Пожалуйста, введите сообщение не менее 10 символов.',
+            'body_long': 'Сообщение слишком длинное. Пожалуйста, ограничьтесь 2000 символами.',
+        })
 
-        name = request.POST.get('name', '').strip()
-        subject = request.POST.get('subject', '').strip()
-        body = request.POST.get('body', '').strip()
-        parent_id = request.POST.get('parent_id')
-
-        if len(name) > 100:
-            error = 'Имя слишком длинное. Пожалуйста, ограничьтесь 100 символами.'
-        elif len(subject) > 200:
-            error = 'Тема слишком длинная. Пожалуйста, ограничьтесь 200 символами.'
-        elif not body or len(body) < 10:
-            error = 'Пожалуйста, введите сообщение не менее 10 символов.'
-        elif len(body) > 2000:
-            error = 'Сообщение слишком длинное. Пожалуйста, ограничьтесь 2000 символами.'
-        else:
-            parent = None
-            if parent_id:
-                try:
-                    parent = GuestEntry.objects.using('guestbook').get(id=parent_id)
-                except GuestEntry.DoesNotExist:
-                    pass
-            GuestEntry.objects.using('guestbook').create(
-                name=name, subject=subject, body=body, parent=parent
-            )
-            success = True
+    page_entries = _get_guestbook_page(request, entries)
 
     return render(request, 'blog/ru/guestbook.html', {
         'entries': page_entries,
@@ -114,44 +128,19 @@ def guestbook_en(request):
     entries = GuestEntry.objects.using('guestbook').filter(approved=True, parent=None).order_by('-date')
     error = None
     success = False
-    
-    paginator = Paginator(entries, 10)  # 10 entries per page
-    page = request.GET.get('page')
-    try:
-        page_entries = paginator.page(page)
-    except PageNotAnInteger:
-        page_entries = paginator.page(1)
-    except EmptyPage:
-        page_entries = paginator.page(paginator.num_pages)
+
+    if request.method == 'POST' and request.POST.get('honeypot'):
+        return redirect('guestbook_en')
 
     if request.method == 'POST':
-        if request.POST.get('honeypot'):
-            return redirect('guestbook_en')
+        error, success = _process_guestbook_form(request, {
+            'name_len': 'Name is too long. Please keep it under 100 characters.',
+            'subject_len': 'Subject is too long. Please keep it under 200 characters.',
+            'body_short': 'Please enter a message of at least 10 characters.',
+            'body_long': 'Message is too long. Please keep it under 2000 characters.',
+        })
 
-        name = request.POST.get('name', '').strip()
-        subject = request.POST.get('subject', '').strip()
-        body = request.POST.get('body', '').strip()
-        parent_id = request.POST.get('parent_id')
-
-        if len(name) > 100:
-            error = 'Name is too long. Please keep it under 100 characters.'
-        elif len(subject) > 200:
-            error = 'Subject is too long. Please keep it under 200 characters.'
-        elif not body or len(body) < 10:
-            error = 'Please enter a message of at least 10 characters.'
-        elif len(body) > 2000:
-            error = 'Message is too long. Please keep it under 2000 characters.'
-        else:
-            parent = None
-            if parent_id:
-                try:
-                    parent = GuestEntry.objects.using('guestbook').get(id=parent_id)
-                except GuestEntry.DoesNotExist:
-                    pass
-            GuestEntry.objects.using('guestbook').create(
-                name=name, subject=subject, body=body, parent=parent
-            )
-            success = True
+    page_entries = _get_guestbook_page(request, entries)
 
     return render(request, 'blog/en/guestbook.html', {
         'entries': page_entries,
