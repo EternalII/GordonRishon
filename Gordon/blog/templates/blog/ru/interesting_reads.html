@@ -12,7 +12,7 @@
                 {% if read.author %}<div class="meta"> — {{ read.author }}</div>{% endif %}
                 {% if read.date %}<div class="meta">{{ read.date|date:"F Y" }}</div>{% endif %}
                 <div class="article-card-excerpt">
-                    {{ read.body_ru|truncatewords:30 }}
+                    {{ read.body_ru|truncatewords_html:30|safe }}
                 </div>
             </a>
         {% empty %}

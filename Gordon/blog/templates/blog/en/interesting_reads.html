@@ -20,10 +20,10 @@
                     {% if not read.body_ru %}
                         <p style="color:red;">Missing body: {{ read.title_ru }}</p>
                     {% elif read.body_en %}
-                        {{ read.body_en|truncatewords:30 }}
+                        {{ read.body_en|truncatewords_html:30|safe }}
                     {% else %}
                         <p class="meta">Translation coming soon.</p>
-                        {{ read.body_ru|truncatewords:30 }}
+                        {{ read.body_ru|truncatewords_html:30|safe }}
                     {% endif %}
                 </div>
             </a>

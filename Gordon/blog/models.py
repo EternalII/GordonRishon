@@ -38,8 +38,8 @@ class InterestingRead(models.Model):
     title_ru = models.CharField(max_length=200)
     title_en = models.CharField(max_length=200, blank=True)
     author = models.CharField(max_length=100, null=True, blank=True)
-    body_ru = models.TextField()
-    body_en = models.TextField(blank=True)
+    body_ru = CKEditor5Field(config_name='default', default='')
+    body_en = CKEditor5Field(blank=True, config_name='default')
     date = models.DateField(null=True, blank=True)
 
     def __str__(self):

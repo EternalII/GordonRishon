@@ -21,9 +21,9 @@
                         {% if not article.body_ru %}
                             <p style="color:red;">Missing body: {{ article.title_ru }}</p>
                         {% elif not article.body_en %}
-                            {{ article.body_ru|truncatewords:30 }}
+                            {{ article.body_ru|truncatewords_html:30|safe }}
                         {% else %}
-                            {{ article.body_en|truncatewords:30 }}
+                            {{ article.body_en|truncatewords_html:30|safe }}
                         {% endif %}
                     </div>
                 </a>
