@@ -7,6 +7,7 @@ urlpatterns = [
     path('articles/', views.articles_en, name='articles_en'),
     path('articles/<int:pk>/', views.article_detail_en, name='article_detail_en'),
     path('interesting-reads/', views.interesting_reads_en, name='interesting_reads_en'),
+    path('interesting-reads/<int:pk>/', views.interesting_reads_detail_en, name='interesting_reads_detail_en'),
     path('family-tree/', views.family_tree_en, name='family_tree_en'),
     path('photos/', views.photos_en, name='photos_en'),
     path('guestbook/', views.guestbook_en, name='guestbook_en'),

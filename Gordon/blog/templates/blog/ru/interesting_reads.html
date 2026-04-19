@@ -2,14 +2,46 @@
 {% block title %}Интересное чтение{% endblock %}
 {% block content %}
     <h1 class="page-title">Интересное чтение</h1>
-    {% for read in reads %}
-        <div class="card">
-            <strong>{{ read.title_ru }}</strong>
-            {% if read.author %}<span class="meta"> — {{ read.author }}</span>{% endif %}
-            {% if read.date %}<p class="meta">{{ read.date|date:"F Y" }}</p>{% endif %}
-            <div class="article-body">{{ read.body_ru|linebreaks }}</div>
-        </div>
-    {% empty %}
+
+    <input type="text" id="search-input" placeholder="Поиск по названию..." class="search-input">
+
+    <div class="articles-grid" id="articles-grid">
+        {% for read in reads %}
+            <a href="{% url 'interesting_reads_detail_en' read.pk %}" class="article-card">
+                <div class="article-card-title">{% if read.title_en %}{{ read.title_en }}{% else %}{{ read.title_ru }}{% endif %}</div>
+                {% if read.author %}<div class="meta"> — {{ read.author }}</div>{% endif %}
+                {% if read.date %}<div class="meta">{{ read.date|date:"F Y" }}</div>{% endif %}
+                <div class="article-card-excerpt">
+                    <div class="article-body">{{ read.body_ru|truncatewords:30 }}</div>
+                </div>
+            </a>
+        {% empty %}
         <p>Ничего еще не добавлено.</p>
-    {% endfor %}
+        {% endfor %}
+    </div>
+
+<p class="no-results" id="no-results" style="display:none;">Ничего не найдено.</p>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const cards = document.querySelectorAll('.article-card');
+        const noResults = document.getElementById('no-results');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            let visible = 0;
+
+            cards.forEach(card => {
+                const title = card.querySelector('.article-card-title').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    card.style.display = 'flex';
+                    visible++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = visible === 0 ? 'block' : 'none';
+        });
+    </script>
 {% endblock %}

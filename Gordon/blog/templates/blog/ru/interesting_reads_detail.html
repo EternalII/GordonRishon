@@ -1,0 +1,19 @@
+{% extends 'blog/ru/base.html' %}
+{% block title %}{{ reads.title_ru }}{% endblock %}
+{% block content %}
+    <h1>{{ read.title_ru }}</h1>
+    {% if read.date %}<p class="meta">{{ read.date|date:"F Y" }}</p>{% endif %}
+
+    {% if read.image and read.image_position == 'top' %}
+    <img src="{{ read.image.url }}" alt="{{ read.title_ru }}" style="max-width: 100%; margin-bottom: 24px;">
+    {% endif %}
+
+    <div class="article-body">{{ read.body_ru|safe }}</div>
+
+    {% if read.image and read.image_position == 'bottom' %}
+        <img src="{{ read.image.url }}" alt="{{ read.title_ru }}" style="max-width: 100%; margin-bottom: 24px;">
+    {% endif %}
+
+    <br>
+    <a href="{% url 'interesting_reads_ru' %}" class="back-link">← Назад к интересным чтениям</a>
+{% endblock %}

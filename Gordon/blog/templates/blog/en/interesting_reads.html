@@ -2,19 +2,58 @@
 {% block title %}Interesting Reads{% endblock %}
 {% block content %}
     <h1 class="page-title">Interesting Reads</h1>
-    {% for read in reads %}
-        <div class="card">
-            <strong>{% if read.title_en %}{{ read.title_en }}{% else %}{{ read.title_ru }}{% endif %}</strong>
-            {% if read.author %}<span class="meta"> — {{ read.author }}</span>{% endif %}
-            {% if read.date %}<p class="meta">{{ read.date|date:"F Y" }}</p>{% endif %}
-            {% if read.body_en %}
-                <div class="article-body">{{ read.body_en|linebreaks }}</div>
-            {% else %}
-                <div class="article-body">{{ read.body_ru|linebreaks }}</div>
-                <p class="meta">Translation coming soon.</p>
-            {% endif %}
-        </div>
-    {% empty %}
-        <p>Nothing added yet.</p>
-    {% endfor %}
+
+    <div class="articles-disclaimer">These articles are translated with the assistance of artificial intelligence (AI). 
+    While efforts are made to ensure the content is accurate, relevant, and up to date, 
+    AI-generated material may contain errors, omissions, or interpretations that do not reflect verified facts or human judgment.
+    </div>
+
+    <input type="text" id="search-input" placeholder="Search by title..." class="search-input">
+
+    <div class="articles-grid" id="articles-grid">
+        {% for read in reads %}
+            <a href="{% url 'interesting_reads_detail_en' read.pk %}" class="article-card">
+                <div class="article-card-title">{% if read.title_en %}{{ read.title_en }}{% else %}{{ read.title_ru }}{% endif %}</div>
+                    {% if read.author %}<div class="meta"> — {{ read.author }}</div>{% endif %}
+                    {% if read.date %}<div class="meta">{{ read.date|date:"F Y" }}</div>{% endif %}
+                    <div class="article-card-excerpt">
+                        {% if not read.body_ru %}
+                            <p style="color:red;">Missing body: {{ read.title_ru }}</p>
+                        {% elif read.body_en %}
+                            <div class="article-body">{{ read.body_en|truncatewords:30 }}</div>
+                        {% else %}
+                            <p class="meta">Translation coming soon.</p>
+                            <div class="article-body">{{ read.body_ru|truncatewords:30 }}</div>
+                        {% endif %}
+                    </div>
+            </a>
+        {% empty %}
+            <p>Nothing added yet.</p>
+        {% endfor %}
+    </div>
+
+    <p class="no-results" id="no-results" style="display:none;">Nothing found.</p>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const cards = document.querySelectorAll('.article-card');
+        const noResults = document.getElementById('no-results');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            let visible = 0;
+
+            cards.forEach(card => {
+                const title = card.querySelector('.article-card-title').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    card.style.display = 'flex';
+                    visible++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = visible === 0 ? 'block' : 'none';
+        });
+    </script>
 {% endblock %}

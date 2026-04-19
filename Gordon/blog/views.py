@@ -83,6 +83,14 @@ def interesting_reads_en(request):
     reads = InterestingRead.objects.all()
     return render(request, 'blog/en/interesting_reads.html', {'reads': reads, 'lang_switch_url': '/ru/interesting-reads/'})
 
+def interesting_reads_detail_en(request, pk):
+    read = get_object_or_404(InterestingRead, pk=pk)
+    return render(request, 'blog/en/interesting_reads_detail.html', {'read': read, 'lang_switch_url': f'/ru/interesting-reads/{pk}/'})
+
+def interesting_reads_detail_ru(request, pk):
+    read = get_object_or_404(InterestingRead, pk=pk)
+    return render(request, 'blog/ru/interesting_reads_detail.html', {'read': read, 'lang_switch_url': f'/en/interesting-reads/{pk}/'})
+
 def family_tree_en(request):
     return render(request, 'blog/en/family_tree.html', {'lang_switch_url': '/ru/family-tree/'})
 

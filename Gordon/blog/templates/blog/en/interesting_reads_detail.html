@@ -1,0 +1,36 @@
+{% extends 'blog/en/base.html' %}
+{% block title %}{% if read.title_en %}{{ read.title_en }}{% else %}{{ read.title_ru }}{% endif %}{% endblock %}
+{% block content %}
+    {% if read.title_en %}
+        <div class="articles-disclaimer">These articles are translated with the assistance of artificial intelligence (AI). 
+            While efforts are made to ensure the content is accurate, relevant, and up to date, 
+            AI-generated material may contain errors, omissions, or interpretations that do not reflect verified facts or human judgment.
+        </div>
+            <h1>{{ read.title_en }}</h1>
+        {% else %}
+            <h1>{{ read.title_ru }}</h1>
+        {% endif %}
+    
+    {% if read.date %}<p class="meta">{{ read.date|date:"F Y" }}</p>{% endif %}
+    
+    <!-- {% if read.image and read.image_position == 'top' %}
+        <img src="{{ read.image.url }}" alt="{{ read.title_ru }}" style="max-width: 100%; margin-bottom: 24px;">
+    {% endif %} -->
+
+    {% if read.body_en %}
+        <div class="article-body">{{ read.body_en|safe }}</div>
+        {% if read.image and read.image_position == 'bottom' %}
+            <!-- <img src="{{ read.image.url }}" alt="{{ read.title_ru }}" style="max-width: 100%; margin-bottom: 24px;"> -->
+        {% endif %}
+    {% else %}
+        <p class="translation-notice">Translation coming soon.</p>
+        <div class="article-body">{{ read.body_ru|safe }}</div>
+        {% if read.image and read.image_position == 'bottom' %}
+            <!-- <img src="{{ read.image.url }}" alt="{{ read.title_ru }}" style="max-width: 100%; margin-bottom: 24px;"> -->
+        {% endif %}
+    {% endif %}
+
+
+    <br>
+    <a href="{% url 'interesting_reads_en' %}">← Back to Interesting Reads</a>
+{% endblock %}
