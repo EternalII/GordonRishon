@@ -7,8 +7,8 @@
 
     <div class="articles-grid" id="articles-grid">
         {% for read in reads %}
-            <a href="{% url 'interesting_reads_detail_en' read.pk %}" class="article-card">
-                <div class="article-card-title">{% if read.title_en %}{{ read.title_en }}{% else %}{{ read.title_ru }}{% endif %}</div>
+            <a href="{% url 'interesting_reads_detail_ru' read.pk %}" class="article-card">
+                <div class="article-card-title">{{ read.title_ru }}</div>
                 {% if read.author %}<div class="meta"> — {{ read.author }}</div>{% endif %}
                 {% if read.date %}<div class="meta">{{ read.date|date:"F Y" }}</div>{% endif %}
                 <div class="article-card-excerpt">
