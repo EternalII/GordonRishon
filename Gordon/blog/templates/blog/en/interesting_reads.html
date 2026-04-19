@@ -14,18 +14,18 @@
         {% for read in reads %}
             <a href="{% url 'interesting_reads_detail_en' read.pk %}" class="article-card">
                 <div class="article-card-title">{% if read.title_en %}{{ read.title_en }}{% else %}{{ read.title_ru }}{% endif %}</div>
-                    {% if read.author %}<div class="meta"> — {{ read.author }}</div>{% endif %}
-                    {% if read.date %}<div class="meta">{{ read.date|date:"F Y" }}</div>{% endif %}
-                    <div class="article-card-excerpt">
-                        {% if not read.body_ru %}
-                            <p style="color:red;">Missing body: {{ read.title_ru }}</p>
-                        {% elif read.body_en %}
-                            <div class="article-body">{{ read.body_en|truncatewords:30 }}</div>
-                        {% else %}
-                            <p class="meta">Translation coming soon.</p>
-                            <div class="article-body">{{ read.body_ru|truncatewords:30 }}</div>
-                        {% endif %}
-                    </div>
+                {% if read.author %}<div class="meta"> — {{ read.author }}</div>{% endif %}
+                {% if read.date %}<div class="meta">{{ read.date|date:"F Y" }}</div>{% endif %}
+                <div class="article-card-excerpt">
+                    {% if not read.body_ru %}
+                        <p style="color:red;">Missing body: {{ read.title_ru }}</p>
+                    {% elif read.body_en %}
+                        {{ read.body_en|truncatewords:30 }}
+                    {% else %}
+                        <p class="meta">Translation coming soon.</p>
+                        {{ read.body_ru|truncatewords:30 }}
+                    {% endif %}
+                </div>
             </a>
         {% empty %}
             <p>Nothing added yet.</p>
