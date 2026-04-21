@@ -94,8 +94,18 @@ def interesting_reads_detail_ru(request, pk):
 def family_tree_en(request):
     return render(request, 'blog/en/family_tree.html', {'lang_switch_url': '/ru/family-tree/'})
 
+def family_tree_detail_en(request, tree_type):
+    if tree_type not in ['core', 'extended']:
+        return redirect('family_tree_en')
+    return render(request, 'blog/en/family_tree_detail.html', {'tree_type': tree_type, 'lang_switch_url': f'/ru/family-tree/{tree_type}/'})
+
 def family_tree_ru(request):
     return render(request, 'blog/ru/family_tree.html', {'lang_switch_url': '/en/family-tree/'})
+
+def family_tree_detail_ru(request, tree_type):
+    if tree_type not in ['core', 'extended']:
+        return redirect('family_tree_ru')
+    return render(request, 'blog/ru/family_tree_detail.html', {'tree_type': tree_type, 'lang_switch_url': f'/en/family-tree/{tree_type}/'})
 
 def photos_ru(request):
     photos = FamilyPhoto.objects.all()

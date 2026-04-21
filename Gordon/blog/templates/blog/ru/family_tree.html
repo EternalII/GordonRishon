@@ -2,7 +2,26 @@
 {% load static %}
 {% block title %}Генеалогическое древо{% endblock %}
 {% block content %}
-        <div class="fam_tree-photo">
-            <img src="{% static 'images/family_tree.jpg' %}" alt="Family Tree">
-        </div>
+    <h1 class="page-title">Генеалогическое древо</h1>
+
+    <div class="tree-grid">
+        <a href="{% url 'family_tree_detail_ru' 'core' %}" class="tree-card">
+            <div class="tree-card-image">
+                <div class="loading-spinner"></div>
+                <img src="{% static 'images/family_tree.jpg' %}" alt="Core Family Tree" onload="this.classList.add('loaded');">
+            </div>
+            <div class="tree-card-title">Основное древо</div>
+        </a>
+
+        <a href="{% url 'family_tree_detail_ru' 'extended' %}" class="tree-card">
+            <div class="tree-card-image">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="{% static 'images/family_tree_extended_low.jpg' %}">
+                    <source media="(max-width: 1200px)" srcset="{% static 'images/family_tree_extended_medium.jpg' %}">
+                    <img src="{% static 'images/family_tree_extended_high.jpg' %}" alt="Extended Family Tree" onload="this.classList.add('loaded'); this.previousElementSibling.parentElement.previousElementSibling.style.display='none';">
+                </picture>
+            </div>
+            <div class="tree-card-title">Расширенное древо</div>
+        </a>
+    </div>
 {% endblock %}

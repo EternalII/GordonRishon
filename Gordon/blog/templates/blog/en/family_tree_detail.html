@@ -1,0 +1,32 @@
+{% extends 'blog/en/base.html' %}
+{% load static %}
+{% block title %}Family Tree Extended{% endblock %}
+{% block content %}
+    <h1 class="page-title">Extended Family Tree</h1>
+
+    <div class="fam_tree-disclaimer"> Click to view the high-resolution image</br> 
+        <span class = "fam_tree-warning">Warning:</span> 
+        The image is large (10k resolution) and may take a moment to load.
+    </div>
+
+    <a href="{% static 'images/family_tree_extended.jpg' %}" download>
+        Click here to download original size
+    </a>
+
+    <div class="fam_tree-photo">
+        {% if tree_type == 'core' %}
+            <img src="{% static 'images/family_tree.jpg' %}" alt="Core Family Tree">
+        {% elif tree_type == 'extended' %}
+        <a href="{% static 'images/family_tree_extended_10k.jpg' %}" target="_blank">
+            <div class="photo-wrap">    
+                <picture>
+                    <source media="(max-width: 768px)" srcset="{% static 'images/family_tree_extended_low.jpg' %}">
+                    <source media="(max-width: 1200px)" srcset="{% static 'images/family_tree_extended_medium.jpg' %}">
+                    <img src="{% static 'images/family_tree_extended_high.jpg' %}" alt="Extended Family Tree">
+                </picture>
+            </div>
+        </a>
+        {% endif %}
+    </div>
+    <a href="{% url 'family_tree_en' %}" class="back-link">← Back to Family Trees</a>
+{% endblock %}

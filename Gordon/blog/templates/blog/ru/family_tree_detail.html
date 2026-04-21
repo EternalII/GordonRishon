@@ -1,0 +1,17 @@
+{% extends 'blog/ru/base.html' %}
+{% load static %}
+{% block title %}Генеалогическое древо{% endblock %}
+{% block content %}
+    <div class="fam_tree-photo">
+        {% if tree_type == 'core' %}
+            <img src="{% static 'images/family_tree.jpg' %}" alt="Core Family Tree" onload="this.classList.add('loaded');">
+        {% elif tree_type == 'extended' %}
+            <picture>
+                <source media="(max-width: 768px)" srcset="{% static 'images/family_tree_extended_low.jpg' %}">
+                <source media="(max-width: 1200px)" srcset="{% static 'images/family_tree_extended_medium.jpg' %}">
+                <img src="{% static 'images/family_tree_extended_high.jpg' %}" alt="Extended Family Tree" onload="this.classList.add('loaded');">
+            </picture>
+        {% endif %}
+    </div>
+    <a href="{% url 'family_tree_ru' %}" class="back-link">← Назад к древам</a>
+{% endblock %}
