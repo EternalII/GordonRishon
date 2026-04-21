@@ -2,15 +2,35 @@
 {% load static %}
 {% block title %}Генеалогическое древо{% endblock %}
 {% block content %}
+    <h1 class="page-title">Расширенное генеалогическое древо</h1>
+    <div class="fam_tree-credit">Специальная благодарность Dimitri Olidort</div>
+
+    <div class="fam_tree-disclaimer"> Нажмите, чтобы просмотреть изображение в высоком разрешении</br> 
+        <span class = "fam_tree-warning">Предупреждение:</span> 
+        Изображение имеет большое разрешение (10k) и может занять некоторое время для загрузки.
+    </div>
+    
+    <div class="fam_tree-download">
+        <div class="fam_tree-download_button">
+            <a href="{% static 'images/family_tree_extended.jpg' %}" download>
+                ⬇️ Скачать в оригинальном размере ⬇️
+            </a>
+        </div>
+    </div>
+
     <div class="fam_tree-photo">
         {% if tree_type == 'core' %}
-            <img src="{% static 'images/family_tree.jpg' %}" alt="Core Family Tree" onload="this.classList.add('loaded');">
+            <img src="{% static 'images/family_tree.jpg' %}" alt="Core Family Tree">
         {% elif tree_type == 'extended' %}
-            <picture>
-                <source media="(max-width: 768px)" srcset="{% static 'images/family_tree_extended_low.jpg' %}">
-                <source media="(max-width: 1200px)" srcset="{% static 'images/family_tree_extended_medium.jpg' %}">
-                <img src="{% static 'images/family_tree_extended_high.jpg' %}" alt="Extended Family Tree" onload="this.classList.add('loaded');">
-            </picture>
+        <a href="{% static 'images/family_tree_extended_10k.jpg' %}" target="_blank">
+            <div class="photo-wrap">    
+                <picture>
+                    <source media="(max-width: 768px)" srcset="{% static 'images/family_tree_extended_low.jpg' %}">
+                    <source media="(max-width: 1200px)" srcset="{% static 'images/family_tree_extended_medium.jpg' %}">
+                    <img src="{% static 'images/family_tree_extended_high.jpg' %}" alt="Extended Family Tree">
+                </picture>
+            </div>
+        </a>
         {% endif %}
     </div>
     <a href="{% url 'family_tree_ru' %}" class="back-link">← Назад к древам</a>

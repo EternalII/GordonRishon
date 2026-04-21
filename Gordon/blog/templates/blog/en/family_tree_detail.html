@@ -3,15 +3,20 @@
 {% block title %}Family Tree Extended{% endblock %}
 {% block content %}
     <h1 class="page-title">Extended Family Tree</h1>
+    <div class="fam_tree-credit">Special thanks to Dimitri Olidort</div>
 
     <div class="fam_tree-disclaimer"> Click to view the high-resolution image</br> 
         <span class = "fam_tree-warning">Warning:</span> 
         The image is large (10k resolution) and may take a moment to load.
     </div>
 
-    <a href="{% static 'images/family_tree_extended.jpg' %}" download>
-        Click here to download original size
-    </a>
+    <div class="fam_tree-download">
+        <div class="fam_tree-download_button">
+            <a href="{% static 'images/family_tree_extended.jpg' %}" download>
+                ⬇️ Download original size ⬇️
+            </a>
+        </div>
+    </div>
 
     <div class="fam_tree-photo">
         {% if tree_type == 'core' %}

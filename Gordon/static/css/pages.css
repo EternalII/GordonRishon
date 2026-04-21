@@ -229,6 +229,13 @@
     transition: opacity 0.3s;
 }
 
+.fam_tree-credit{
+    /* font-size: 0.9rem; */
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 8px;
+}
+
 .fam_tree-disclaimer::before {
     content: "⚠️";
     position: absolute;
@@ -254,6 +261,68 @@
 .fam_tree-warning {
     color: #c0392b; /* soft red */
     font-weight: 500;
+}
+
+/* .fam_tree-download_button::before {
+    content: "⬇️";
+    position: absolute;
+    left: 8px;
+    font-size: 0.95rem;
+    opacity: 0.7;
+} */
+
+.fam_tree-download {
+    margin: 24px 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fam_tree-download_button {
+    appearance: none;
+    background-color: transparent;
+    border: 0.125em solid var(--accent);
+    border-radius: 0.9375em;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    /* font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"; */
+    font-size: 14px;
+    font-weight: 600;
+    line-height: normal;
+    min-height: 3.75em;
+    min-width: 0;
+    outline: none;
+    padding: 1em 1em;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    position: relative;
+    will-change: transform;
+}
+
+.fam_tree-download_button:disabled {
+    pointer-events: none;
+}
+
+.fam_tree-download_button:hover {
+    background-color: var(--accent);
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+/* .fam_tree-download_button:hover a {
+    color: var(--paper);
+} */
+
+.fam_tree-download_button:active {
+    box-shadow: none;
+    transform: translateY(0);
+    
 }
 
 /* -- If I decide to use a Spinner -- */
